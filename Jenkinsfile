@@ -5,9 +5,11 @@ pipeline {
 	}
 	stages {
     		stage('Git Checkout'){
-        		git credentialsId: 'github',
-        		url: 'https://github.com/vouzze/drugstore_jen',
-        		branch: "main"
+			steps {
+            			git credentialsId: 'github',
+        			url: 'https://github.com/vouzze/drugstore_jen',
+        			branch: "main"
+        		}
 		}
     		stage('Build') {
        			steps {
