@@ -34,9 +34,11 @@ pipeline {
             		}
         	}
    		stage('Deploy'){
-			sh "docker stop drugstore_jen | true"
-        		sh "docker rm drugstore_jen | true"
-        		sh "docker run --name drugstore_jen -d -p 9004:8080 vouzze/drugstore_jen:${TAG}"
+			steps {
+            			sh "docker stop drugstore_jen | true"
+        			sh "docker rm drugstore_jen | true"
+        			sh "docker run --name drugstore_jen -d -p 9004:8080 vouzze/drugstore_jen:${TAG}"
+        		}
     		}
 	}
 	post {
