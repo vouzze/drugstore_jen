@@ -4,13 +4,6 @@ pipeline {
 		maven "3.3.9"
 	}
 	stages {
-    		stage('Git Checkout'){
-			steps {
-            			git credentialsId: 'github',
-        			url: 'https://github.com/vouzze/drugstore_jen',
-        			branch: "main"
-        		}
-		}
     		stage('Build') {
        			steps {
             			sh 'mvn clean package'
