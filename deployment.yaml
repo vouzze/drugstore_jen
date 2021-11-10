@@ -17,7 +17,7 @@ spec:
   spec:
    containers:
    - name: drugstore_jen
-     image: vouzze/drugstore_jen:tagversion
+     image: vossi11037/drugstore_jen:tagversion
      ports:
      - containerPort: 8080
 
