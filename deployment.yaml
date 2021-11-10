@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: drugstore_jen
+ labels:
+  app: drugstore_jen
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: drugstore_jen
+ template:
+  metadata: 
+   labels:
+    app: drugstore_jen
+  spec:
+   containers:
+   - name: drugstore_jen
+     image: vouzze/drugstore_jen:tagversion
+     ports:
+     - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drugstore_jen
+spec:
+  type: LoadBalancer
+  selector:
+    app: drugstore_jen
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
