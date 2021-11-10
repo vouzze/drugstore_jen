@@ -8,7 +8,7 @@
         <version>2.5.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-         <!-- danganronpa  -->
+         <!--  danganronpa  -->
     <groupId>com.example</groupId>
     <artifactId>drugstore_jen</artifactId>
     <version>0.0.1-SNAPSHOT</version>
