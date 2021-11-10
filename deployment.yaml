@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: drugstore_jen
+ name: drugstore
  labels:
-  app: drugstore_jen
+  app: drugstore
 spec:
  replicas: 1
  selector:
   matchLabels:
-   app: drugstore_jen
+   app: drugstore
  template:
   metadata: 
    labels:
-    app: drugstore_jen
+    app: drugstore
   spec:
    containers:
-   - name: drugstore_jen
+   - name: drugstore
      image: vossi11037/drugstore_jen:tagversion
      ports:
      - containerPort: 8080
@@ -25,11 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: drugstore_jen
+  name: drugstore
 spec:
   type: LoadBalancer
   selector:
-    app: drugstore_jen
+    app: drugstore
   ports:
     - protocol: TCP
       port: 80
