@@ -4,8 +4,10 @@ pipeline {
 		maven "3.3.9"
 	}
 	environment {
-        	DATE = new Date().format('yy.M')
-        	TAG = "${DATE}.${BUILD_NUMBER}"
+		PROJECT_ID = 'cogent-reach-331610'
+                CLUSTER_NAME = 'harniukcluster'
+                LOCATION = 'europe-west3-a'
+                CREDENTIALS_ID = 'kubernetes'
     	}
 	stages {
     		stage('Build') {
@@ -15,16 +17,28 @@ pipeline {
     		}
     		stage('Docker Build') {
         		steps {
+				sh 'whoami'
             			script {
-                   			docker.build("vouzze/drugstore_jen:${TAG}")
+					myimage = docker.build("vouzze/drugstore_jens:${env.BUILD_ID}")
                 		}
             		}
         	}
+		stage('Push Docker Image') {
+                	steps {
+                   		script {
+                      			docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                      				myimage.push("${env.BUILD_ID}")
+                     			}   
+                   		}
+                	}
+            	}
    		stage('Deploy') {
 			steps {
-	            		sh "docker stop drugstore_jen | true"
-        			sh "docker rm drugstore_jen | true"
-        			sh "docker run --name drugstore_jen -d -p 9004:8080 vouzze/drugstore_jen:${TAG}"
+				sh 'ls -ltr'
+		   		sh 'pwd'
+		   		sh "sed -i 's/tagversion/${env.BUILD_ID}/g' deployment.yaml"
+                   		step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+		   		echo "Deployment Finished ..."
 			}
     		}
 	}
