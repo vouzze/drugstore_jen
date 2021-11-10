@@ -30,7 +30,7 @@ pipeline {
                 		}
             		}
         	}
-   		stage('Deploy'){
+   		stage('Deploy') {
 			steps {
 				script {
 	            			sh "docker stop drugstore_jen | true"
