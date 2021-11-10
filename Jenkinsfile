@@ -23,7 +23,7 @@ pipeline {
 	    	stage('Pushing Docker Image to Dockerhub') {
             		steps {
                 		script {
-                    			docker.withRegistry('https://registry.hub.docker.com') {
+                    			docker.withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]){
                         			docker.image("vouzze/drugstore_jen:${TAG}").push()
                         			docker.image("vouzze/drugstore_jen:${TAG}").push("latest")
                     			}
