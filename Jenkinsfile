@@ -19,7 +19,7 @@ pipeline {
         		steps {
 				sh 'whoami'
             			script {
-					myimage = docker.build("vouzze/drugstore_jens:${env.BUILD_ID}")
+					myimage = docker.build("vouzze/drugstore_jen:${env.BUILD_ID}")
                 		}
             		}
         	}
