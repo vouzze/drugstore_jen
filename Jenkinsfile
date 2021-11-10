@@ -20,16 +20,6 @@ pipeline {
                 		}
             		}
         	}
-	    	stage('Pushing Docker Image to Dockerhub') {
-            		steps {
-                		script {
-                    			docker.withDockerRegistry([ credentialsId: "vossi11037", url: "https://registry.hub.docker.com" ]){
-                        			docker.image("vouzze/drugstore_jen:${TAG}").push()
-                        			docker.image("vouzze/drugstore_jen:${TAG}").push("latest")
-                    			}
-                		}
-            		}
-        	}
    		stage('Deploy') {
 			steps {
 				script {
